@@ -1,10 +1,7 @@
 import 'package:duseca_task/const/app_assets.dart';
-import 'package:duseca_task/const/colors.dart';
-import 'package:duseca_task/const/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 
 class PickRideController extends GetxController{
   List<List<String>> seatsData = [];
@@ -47,11 +44,12 @@ class PickRideController extends GetxController{
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Add Seat'),
-            content: Column(
+            content: Row(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: (){
                     if (totalSeats < 9) {
                       addSeat(AppAssets.selectedSeat);
                       Navigator.pop(context);
@@ -59,10 +57,10 @@ class PickRideController extends GetxController{
                       showBusFullDialog(context);
                     }
                   },
-                  child: const Text('Add Selected Seat'),
+                  child: Image.asset(AppAssets.selectedSeat),
                 ),
-                ElevatedButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: (){
                     if (totalSeats < 9) {
                       addSeat(AppAssets.availableSeat);
                       Navigator.pop(context);
@@ -70,8 +68,9 @@ class PickRideController extends GetxController{
                       showBusFullDialog(context);
                     }
                   },
-                  child: const Text('Add Available Seat'),
+                  child: Image.asset(AppAssets.availableSeat),
                 ),
+
               ],
             ),
           );
@@ -124,10 +123,8 @@ class PickRideController extends GetxController{
   void addSeat(String newSeat) {
       if (seatsData.length < 9) {
         if (seatsData.isEmpty || seatsData.last.length == 3) {
-          // If the last row is full or there are no rows, start a new row
           seatsData.add([newSeat]);
         } else {
-          // Add to the existing row
           seatsData.last.add(newSeat);
         }
       }
@@ -136,10 +133,8 @@ class PickRideController extends GetxController{
 
   void removeSeat() {
       if (seatsData.isNotEmpty) {
-        // Remove the last seat
         seatsData.last.removeLast();
 
-        // If the last row becomes empty, remove the row
         if (seatsData.last.isEmpty) {
           seatsData.removeLast();
         }

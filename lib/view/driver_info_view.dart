@@ -1,5 +1,4 @@
 import 'package:duseca_task/const/colors.dart';
-import 'package:duseca_task/const/widgets/my_button.dart';
 import 'package:duseca_task/const/widgets/my_text.dart';
 import 'package:duseca_task/const/widgets/tab_widget.dart';
 import 'package:duseca_task/controller/driver_info_controller.dart';
